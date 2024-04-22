@@ -34,7 +34,6 @@ def addtemplate1():
             existing_template.TEMPLATE = temp
             existing_template.LAST_UPDATED_BY = 'HR'
         else:   
-            # Get the maximum ID in the table and increment it by 1
             max_id = db.session.query(db.func.max(LetterTemplates.TEMPLATE_ID)).scalar() or 0
             new_id = max_id + 1
 
@@ -59,30 +58,7 @@ def addtemplate1():
 
 
 
-
-def addtemplate():
-    try:
-        file = request.files['TEMPLATE']
-        # print("file",file)
-        temp = file.read()
-        print("file.mimetype",file.mimetype)
-        details = LetterTemplates(
-            # TEMPLATE_ID = request.form['template_Id'],
-            TEMPLATE_NAME = request.form['TEMPLATE_NAME'],
-            TEMPLATE_TYPE = file.mimetype,
-            FILE_SIZE = len(temp),
-            TEMPLATE = temp,
-            CREATED_BY = 'HR',
-            LAST_UPDATED_BY = 'HR'
-        )
-        db.session.add(details)
-        db.session.commit()
-        return jsonify({'message':'template uploaded successfully'}), 200
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
  
-##get rtf file from database
 def getTemplateById(TEMPLATE_ID):
     try:
        
@@ -118,8 +94,6 @@ def convertrtf(TEMPLATE_ID):
         print("rtf_file_path",rtf_file_path)
         with open(rtf_file_path, 'wb') as file:
                 file.write(file_obj.read())
-       
- 
         pythoncom.CoInitialize()
         word = win32com.client.Dispatch("Word.Application")
         doc = word.Documents.Open(rtf_file_path)
