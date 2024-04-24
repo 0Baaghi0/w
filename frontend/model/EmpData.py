@@ -13,7 +13,7 @@ class Emp_Detalies(db.Model):
     __tablename__='emp_detalies'
 
 
-    EMPLOYEE_NUMBER =db.Column(db.Integer,primary_key=True)
+    EMPLOYEE_NO =db.Column(db.Integer,primary_key=True)
     FIRST_NAME=db.Column(db.String(225),nullable=False)
     LAST_NAME=db.Column(db.String(225),nullable=False)
     DATE_OF_BIRTH=db.Column(db.Date)
@@ -33,7 +33,7 @@ class Emp_Detalies(db.Model):
 
     def serialize(self):
         return {
-            'EMPLOYEE_NUMBER': self.EMPLOYEE_NUMBER,
+            'EMPLOYEE_NO': self.EMPLOYEE_NO,
             'FIRST_NAME': self.FIRST_NAME,
             'DATE_OF_BIRTH': self.DATE_OF_BIRTH,
             'LAST_NAME':self.LAST_NAME,

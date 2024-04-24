@@ -1,10 +1,7 @@
 from app import app
-
 from Controller.EmpDataController import *
-
 from Controller.userdetaliescontroller import *
 from Controller.LetterTemplateController import *
-
 
 
 #ADD NEW EMPDATA STORE IN DATABASE
@@ -80,7 +77,7 @@ def getregisters():
 # def getdeleteById(USER_ID):
 #     return deleteemployee(USER_ID)
  
-# #register update method
+#register update method
 # @app.route('/updateid/<USER_ID>',methods=['PUT'])
 # def updateid(USER_ID):
 #     return updateemployee(USER_ID)
@@ -106,6 +103,13 @@ def getregisters():
 @app.route('/uploadTemplate', methods=['POST'])
 def upload_Template():
     return addtemplate1()
+
+
+
+@app.route('/getTemplateNames', methods=['GET'])
+def get_all_template():
+    return get_all_template_names()
+
 
 
 @app.route('/getTemplateById/<TEMPLATE_ID>',methods=['GET'])

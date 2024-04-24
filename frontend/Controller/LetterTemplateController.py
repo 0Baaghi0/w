@@ -76,6 +76,14 @@ def getTemplateById(TEMPLATE_ID):
         return jsonify({'error':str(e)}), 500
 
 
+def get_all_template_names():
+    try:
+        templates = LetterTemplates.query.all()
+        template_names = [template.TEMPLATE_NAME for template in templates]
+        return jsonify(template_names), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
  
 def convertrtf(TEMPLATE_ID):

@@ -1,13 +1,10 @@
 from sqlite3 import IntegrityError
-
 from flask import Flask, request, jsonify
 import mysql.connector
 from sqlalchemy import Text, func
 from model.EmpData import *
 from config import *
 from sqlalchemy.exc import IntegrityError
-
-
 import pandas as pd
 
 
@@ -17,7 +14,7 @@ def addempdata():
         print('data-->',data)
        
         emp_data=Emp_Detalies(
-                            EMPLOYEE_NUMBER=data['EMPLOYEE_NUMBER'],
+                            EMPLOYEE_NO=data['EMPLOYEE_NUMBER'],
                             FIRST_NAME=data['FIRST_NAME'],
                             LAST_NAME=data['LAST_NAME'],
                             # DATE_OF_JOINING=data['DATE_OF_JOINING'],
@@ -50,7 +47,7 @@ def getemployeeId(EMPLOYEE_NUMBER):
     data = Emp_Detalies.query.get(EMPLOYEE_NUMBER)
     if data:
         new = {
-            'EMPLOYEE_NUMBER': data.EMPLOYEE_NUMBER,
+            'EMPLOYEE_NO': data.EMPLOYEE_NUMBER,
             'FIRST_NAME': data.FIRST_NAME,
             'DATE_OF_BIRTH': data.DATE_OF_BIRTH,
             'LAST_NAME': data.LAST_NAME,
@@ -102,7 +99,7 @@ def filter_employees(search_data):
             return jsonify({'message': 'No employees found for the given search criteria'}), 404
         for employee in employees:
             employee_dict = {
-            'EMPLOYEE_NUMBER': employee.EMPLOYEE_NUMBER,
+            'EMPLOYEE_NO': employee.EMPLOYEE_NUMBER,
             'FIRST_NAME': employee.FIRST_NAME,
             'DATE_OF_BIRTH': employee.DATE_OF_BIRTH,
             'LAST_NAME':employee.LAST_NAME,
@@ -131,7 +128,7 @@ def upload_excel():
                 if existing_employee:
                     continue  
                 employee = Emp_Detalies(
-                    EMPLOYEE_NUMBER=employee_number,
+                    EMPLOYEE_NO=employee_number,
                     FIRST_NAME=row['FIRST_NAME'],
                     LAST_NAME=row['LAST_NAME'],
                     DATE_OF_BIRTH=row['DATE_OF_BIRTH'],
@@ -151,3 +148,7 @@ def upload_excel():
             return jsonify({'message': 'All data already exists in the database'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+    
+    
+
